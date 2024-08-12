@@ -24,12 +24,10 @@ ChartJS.register(
 const Statistics = () => {
   const [stats, setStats] = useState(null);
   const [selectedMonth, setSelectedMonth] = useState(3); // Default to all months
-
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
   const fetchStats = useCallback(async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/stats?month=${selectedMonth}`
-      );
+      const response = await fetch(`${BASE_URL}/stats?month=${selectedMonth}`);
       const data = await response.json();
       setStats(data);
     } catch (error) {

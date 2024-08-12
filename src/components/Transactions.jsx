@@ -7,12 +7,13 @@ const Transactions = () => {
   const [selectedMonth, setSelectedMonth] = useState(3); // Default to March
   const [itemsPerPage, setItemsPerPage] = useState(10); // Default to 10 items per page
   const [totalPages, setTotalPages] = useState(1); // To handle total pages for pagination
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
   // Fetch transactions data
   const fetchTransactions = useCallback(async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/transactions?search=${searchText}&page=${currentPage}&limit=${itemsPerPage}&month=${selectedMonth}`
+        `${BASE_URL}/transactions?search=${searchText}&page=${currentPage}&limit=${itemsPerPage}&month=${selectedMonth}`
       );
       const data = await response.json();
       setTransactions(data.transactions);
