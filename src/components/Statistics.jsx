@@ -44,7 +44,7 @@ const Statistics = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col p-8">
+    <div className="h-screen flex flex-col p-4 sm:p-8">
       <h1 className="text-3xl font-bold mb-4">Statistics</h1>
       <div className="flex space-x-4 mb-4">
         <select
@@ -69,76 +69,75 @@ const Statistics = () => {
       </div>
 
       {stats ? (
-        <div className="flex ">
-          <div className="flex">
-            <div className="mb-8 ">
-              <h2 className="text-2xl font-bold mb-4">General Stats</h2>
-              <div className=" p-4 rounded shadow">
-                <p>
-                  <strong>Total Sale Amount:</strong> $
-                  {stats.totalSaleAmount.toFixed(2)}
-                </p>
-                <p>
-                  <strong>Total Sold Items:</strong> {stats.totalSoldItems}
-                </p>
-                <p>
-                  <strong>Total Not Sold Items:</strong>{" "}
-                  {stats.totalNotSoldItems}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex-1 w-1/3">
-              <h2 className="text-2xl font-bold mb-4">Category Statistics</h2>
-              <div className=" p-4 rounded shadow">
-                <Pie
-                  data={{
-                    labels: stats.categoryStatistics.map((c) => c.category),
-                    datasets: [
-                      {
-                        label: "Category Distribution",
-                        data: stats.categoryStatistics.map((c) => c.count),
-                        backgroundColor: [
-                          "rgba(255, 99, 132, 0.2)",
-                          "rgba(54, 162, 235, 0.2)",
-                          "rgba(255, 206, 86, 0.2)",
-                          "rgba(75, 192, 192, 0.2)",
-                        ],
-                        borderColor: [
-                          "rgba(255, 99, 132, 1)",
-                          "rgba(54, 162, 235, 1)",
-                          "rgba(255, 206, 86, 1)",
-                          "rgba(75, 192, 192, 1)",
-                        ],
-                        borderWidth: 1,
-                      },
-                    ],
-                  }}
-                  options={{
-                    responsive: true,
-                    plugins: {
-                      legend: {
-                        position: "top",
-                      },
-                      tooltip: {
-                        callbacks: {
-                          label: function (context) {
-                            let label = context.label || "";
-                            let value = context.raw || 0;
-                            return `${label}: ${value}`;
-                          },
-                        },
-                      },
-                    },
-                  }}
-                />
-              </div>
+        <div className="flex flex-wrap justify-center gap-4">
+          <div className="w-full sm:w-auto mb-8">
+            <h2 className="text-2xl font-bold mb-4">General Stats</h2>
+            <div className="p-4 rounded shadow w-full sm:w-auto">
+              <p>
+                <strong>Total Sale Amount:</strong> $
+                {stats.totalSaleAmount.toFixed(2)}
+              </p>
+              <p>
+                <strong>Total Sold Items:</strong> {stats.totalSoldItems}
+              </p>
+              <p>
+                <strong>Total Not Sold Items:</strong> {stats.totalNotSoldItems}
+              </p>
             </div>
           </div>
 
-          <div className="flex-1 w-2/5">
+          <div className="w-full sm:w-auto">
+            <h2 className="text-2xl font-bold mb-4">Category Statistics</h2>
+            <div className="p-4 rounded shadow w-full">
+              <Pie
+                data={{
+                  labels: stats.categoryStatistics.map((c) => c.category),
+                  datasets: [
+                    {
+                      label: "Category Distribution",
+                      data: stats.categoryStatistics.map((c) => c.count),
+                      backgroundColor: [
+                        "rgba(255, 99, 132, 0.2)",
+                        "rgba(54, 162, 235, 0.2)",
+                        "rgba(255, 206, 86, 0.2)",
+                        "rgba(75, 192, 192, 0.2)",
+                      ],
+                      borderColor: [
+                        "rgba(255, 99, 132, 1)",
+                        "rgba(54, 162, 235, 1)",
+                        "rgba(255, 206, 86, 1)",
+                        "rgba(75, 192, 192, 1)",
+                      ],
+                      borderWidth: 1,
+                    },
+                  ],
+                }}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: {
+                      position: "top",
+                    },
+                    tooltip: {
+                      callbacks: {
+                        label: function (context) {
+                          let label = context.label || "";
+                          let value = context.raw || 0;
+                          return `${label}: ${value}`;
+                        },
+                      },
+                    },
+                  },
+                }}
+                height={200} // Set height to manage overflow
+              />
+            </div>
+          </div>
+
+          <div className="w-full sm:w-auto">
             <h2 className="text-2xl font-bold mb-4">Price Range Statistics</h2>
-            <div className=" p-2 rounded shadow">
+            <div className="p-4 rounded shadow w-full">
               <Bar
                 data={{
                   labels: stats.priceRangeStatistics.map((r) => r.range),
@@ -154,6 +153,7 @@ const Statistics = () => {
                 }}
                 options={{
                   responsive: true,
+                  maintainAspectRatio: false,
                   plugins: {
                     legend: {
                       position: "top",
@@ -174,6 +174,7 @@ const Statistics = () => {
                     },
                   },
                 }}
+                height={150} // Set height to manage overflow
               />
             </div>
           </div>
